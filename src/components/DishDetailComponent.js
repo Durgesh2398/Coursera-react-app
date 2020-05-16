@@ -7,23 +7,25 @@ class Dishdetail extends Component {
         this.state = {
         }
     }
-    formatDate({ date }) {
-        return new Date(date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        });
-      }
-    renderDish(dish) {
+    // formatDate({ date }) {
+    //     return new Date(date).toLocaleDateString("en-US", {
+    //       year: "numeric",
+    //       month: "short",
+    //       day: "numeric"
+    //     });
+    //   }
+     renderDish(dish) {
         if (dish != null) {
             return(
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <div className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </div>
             )
         }
         else{
@@ -35,16 +37,19 @@ class Dishdetail extends Component {
     renderComments(comments){
         if (comments != null) {
             let list = comments.map((comments)=>{
-                let date = comments.date
+                
                 return(
                     <li key={comments.id} >
-                        <p>{comments.comment}</p>
-                        <p>--{comments.author},{this.formatDate({date})}</p>
+                        <div>
+                            <p>{comments.comment}</p>
+                            <p>--{comments.author},
+                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}</p>
+                        </div>
                     </li>
                 )
             })
             return(
-                <div>
+                <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
                     <ul className="list-unstyled">
                         {list}
@@ -59,11 +64,14 @@ class Dishdetail extends Component {
         }
     }
     render(){
-        const {dishSelect} = this.props;
-        console.log(dishSelect);
-        return dishSelect?(
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderComments(dishSelect.comments)}
+        const {dish} = this.props;
+        console.log(this.props);
+        return dish?(
+                <div className="container">
+                    <div className="row">
+                    {this.renderDish(dish)}
+                    {this.renderComments(dish.comments)}
+                    </div>
                 </div>
         ):(
             <div></div>
