@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function About(props) {
     console.log(props.leader)
-    const leaders = props.leader.map((leader) => {
+    const leaders = props.leaders.map((leader) => {
         return (
             <RenderLeader leader = {leader} />
         );
