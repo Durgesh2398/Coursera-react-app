@@ -21,7 +21,7 @@ import { baseUrl } from '../shared/baseUrl';
             )
         }
         
-    function RenderComments({comments,addComment,dishId}){
+    function RenderComments({comments,postComment,dishId}){
         if (comments != null) {
             let list = comments.map((comments)=>{
                 
@@ -41,7 +41,7 @@ import { baseUrl } from '../shared/baseUrl';
                     <ul className="list-unstyled">
                         {list}
                     </ul>
-                    <CommentForm dishId={dishId} addComment={addComment}>
+                    <CommentForm dishId={dishId} postComment={postComment}>
 
                     </CommentForm>
                 </div>
@@ -92,7 +92,7 @@ import { baseUrl } from '../shared/baseUrl';
                             <RenderDish dish={props.dish} />
                             <RenderComments 
                                 comments={props.comments}
-                                addComment={props.addComment}
+                                postComment={props.postComment}
                                 dishId={props.dish.id}
                             />
                     </div>
@@ -134,7 +134,7 @@ class CommentForm extends Component {
 
         console.log('Current State is: ' + JSON.stringify(values));
 
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
